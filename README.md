@@ -1,23 +1,50 @@
-# Backend - Face-recognition Based Attendance Taking System 
+# Backend - Face-recognition Based Attendance Taking System
 
 ## Setup
 
-First, make sure you have `python3` installed.
+### Docker
 
-Using `virtualenv` is recommended. To create and activate a `virtualenv`:
+First, make sure docker and docker-compose are installed. For installation guide, visit [Docker Docs](https://docs.docker.com/) and select appropriate OS on the bottom of the page.
 
-```sh
-virtualenv env
-source env/bin/activate
-```
-
-To install all required packages, run
-```sh
-pip install -r requirements.txt
-```
-
-To start the development server, run
+under the project root directory run
 
 ```sh
-python manage.py. runserver
+docker-compose up
 ```
+
+The docker compose will automatically pull the required images and config them. (ref: docker-compose.yml)
+
+After building (first time may take a longer time), the backend server will be ready at port `8000`.
+
+### Django Super User and Admin Page
+
+To create super users for `django`
+
+```bash
+docker-compose run web python manage.py createsuperuser
+```
+
+The admin page will be accessble at `http://localhost:8000/admin`.
+
+## Test
+
+run tests
+
+```
+$ python manage.py test
+```
+
+run coverage
+
+```
+$ coverage run manage.py test
+$ coverage report
+```
+
+generate html report
+
+```
+$ coverage run manage.py test && coverage html
+```
+
+open htmlcov/index.html
