@@ -19,6 +19,12 @@ The docker compose will automatically pull the required images and config them. 
 After building (first time may take longer time),
 you should see the backend is started at port 8000.
 
+To create super users
+
+```bash
+docker-compose run web python manage.py createsuperuser
+```
+
 ### Virtualenv (deprecated)
 
 First, make sure you have `python3` installed.
