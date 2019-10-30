@@ -2,13 +2,11 @@
 
 ## Setup
 
-### Docker (Recommended)
+### Docker
 
-make sure docker and docker-compose are installed
+First, make sure docker and docker-compose are installed. For installation guide, visit [Docker Docs](https://docs.docker.com/) and select appropriate OS on the bottom of the page.
 
-- mac: https://docs.docker.com/docker-for-mac/install/
-
-under the project direction run
+under the project root directory run
 
 ```sh
 docker-compose up
@@ -16,38 +14,17 @@ docker-compose up
 
 The docker compose will automatically pull the required images and config them. (ref: docker-compose.yml)
 
-After building (first time may take longer time),
-you should see the backend is started at port 8000.
+After building (first time may take a longer time), the backend server will be ready at port `8000`.
 
-To create super users
+### Django Super User and Admin Page
+
+To create super users for `django`
 
 ```bash
 docker-compose run web python manage.py createsuperuser
 ```
 
-### Virtualenv (deprecated)
-
-First, make sure you have `python3` installed.
-Second, you need to start redis server, posgreSQL server, and celery workers
-
-Using `virtualenv` is recommended. To create and activate a `virtualenv`:
-
-```sh
-virtualenv env
-source env/bin/activate
-```
-
-To install all required packages, run
-
-```sh
-pip install -r requirements.txt
-```
-
-To start the development server, run
-
-```sh
-python manage.py. runserver
-```
+The admin page will be accessble at `http://localhost:8000/admin`.
 
 ## Test
 
