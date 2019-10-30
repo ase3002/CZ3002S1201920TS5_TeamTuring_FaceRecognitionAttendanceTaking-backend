@@ -1,7 +1,7 @@
 # Backend - Face-recognition Based Attendance Taking System 
 
 ## Setup
-
+### Virtualenv
 First, make sure you have `python3` installed.
 
 Using `virtualenv` is recommended. To create and activate a `virtualenv`:
@@ -21,3 +21,4 @@ To start the development server, run
 ```sh
 python manage.py. runserver
 ```
+### Docker (recommended)
