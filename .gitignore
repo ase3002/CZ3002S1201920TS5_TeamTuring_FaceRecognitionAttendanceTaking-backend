@@ -87,7 +87,6 @@ __pycache__/
 local_settings.py
 
 ## Virtual env ##
-.env
 venv*/
 .idea
 
