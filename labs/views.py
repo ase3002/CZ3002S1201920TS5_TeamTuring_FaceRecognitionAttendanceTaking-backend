@@ -1,11 +1,12 @@
 from PIL import Image
-from rest_framework import status, viewsets, generics, views, parsers, exceptions
+from rest_framework import status, viewsets, generics, views, exceptions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Course, Lab, Student, Session, Attendance
 from .serializers import CourseSerializer, LabSerializer, StudentSerializer, SessionSerializer, AttendanceSerializer
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
+from .image_reader import read_image_from_request
 
 import base64
 import pickle
@@ -49,8 +50,10 @@ class StudentListView(generics.ListAPIView):
             student = serializer.save()
             # save face encoding data
             if 'image' in request.data:
-                f = request.data['image']
-                face_encoding_base64 = encode_facedata(f)
+                face_image = read_image_from_request(request.data)
+                face_encoding = face_recognition.face_encodings(face_image)[0]
+                face_encoding_bytes = pickle.dumps(face_encoding)
+                face_encoding_base64 = base64.b64encode(face_encoding_bytes)
                 student.face_encoding = face_encoding_base64
                 student.save()
 
@@ -82,8 +85,10 @@ class StudentDetailView(views.APIView):
         if serializer.is_valid():
             student = serializer.save()
             if 'image' in request.data:
-                f = request.data['image']
-                face_encoding_base64 = encode_facedata(f)
+                face_image = read_image_from_request(request.data)
+                face_encoding = face_recognition.face_encodings(face_image)[0]
+                face_encoding_bytes = pickle.dumps(face_encoding)
+                face_encoding_base64 = base64.b64encode(face_encoding_bytes)
                 student.face_encoding = face_encoding_base64
                 student.save()
             return Response(serializer.data)
